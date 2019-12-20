@@ -1,16 +1,16 @@
-const config = require('../config');
+require('dotenv').config();
 
 const v1 = async (req, res, next) => {
-    if( req.headers['app-id'] == config["api-v1"]["app-id"] && 
-        req.headers['secret-key'] == config["api-v1"]["secret-key"]) {
+    if( req.headers['app-id'] == process.env.APP_ID_V1 && 
+        req.headers['secret-key'] == process.env.SECRET_KEY_V1) {
         return next();
     }
     return res.send({ error: 'Wrong Application Key!' });
 };
 
 const v2 = async (req, res, next) => {
-    if( req.headers['app-id'] == config["admin"]["app-id"] && 
-        req.headers['secret-key'] == config["admin"]["secret-key"]) {
+    if( req.headers['app-id'] == process.env.APP_ID_V2 && 
+        req.headers['secret-key'] == process.env.SECRET_KEY_V2) {
         
         return next();
     }

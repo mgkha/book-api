@@ -2,10 +2,12 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 const api_service = require('../services/api_service');
 
+require('dotenv').config();
+
 const jwt_auth = async (req, res, next) => {
     try {
         const access_token = req.header('Authorization').replace('Bearer ', '');
-        const decoded = jwt.verify(access_token, 'waduhekisdat');
+        const decoded = jwt.verify(access_token, process.env.JWT_SIGN);
 
         const user = await User.findOne({ _id: decoded._id, access_token });
 

@@ -2,6 +2,8 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
+require('dotenv').config();
+
 const userSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -49,7 +51,7 @@ userSchema.pre('save', async function (next) {
 
 userSchema.methods.generateAuthToken = async function () {
     const user = this;
-    user.access_token = jwt.sign({ _id: user._id.toString() }, 'waduhekisdat' , { expiresIn: '1 days' });
+    user.access_token = jwt.sign({ _id: user._id.toString() }, process.env.JWT_SIGN , { expiresIn: process.env.JWT_EXPIRE });
     await user.save();
 
     return user.access_token;
