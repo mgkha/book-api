@@ -44,6 +44,7 @@ const create = async (req, res) => {
                     filename: req.file.filename,
                     cover: path.parse(req.file.filename).name + '-0.png'
                 });
+                book.save();
                 return api_service.response(res, 200, 'Success', {book});
             }),
             (error) => api_service.response(res, 401, 'Error', {error});
